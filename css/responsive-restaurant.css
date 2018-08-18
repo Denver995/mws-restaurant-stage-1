@@ -11,35 +11,35 @@ img, table, td {
 
 /* responsive design for divice with max-width: 750px*/
 @media screen and (max-width: 750px) {
-	#breadcrumb {
+	ul#breadcrumb {
     	width: 100%;
 	}
 
-	.inside #map-container {
+	.inside section#map-container {
 		width: 100%;
 		height: 340px;
 		position: absolute;
 		top: 130px;
 	}
 		 
-	.inside #restaurant-container {
+	.inside section#restaurant-container {
 		width: 100%;
 		padding: 10px 15px 10px;
 		margin-top: 470px;
 	}
 
-	.inside #reviews-container {
+	.inside section#reviews-container {
 		width: 100%;
 	}
 
-	#reviews-list li {
+	ul#reviews-list li {
 	    position: relative;
 	    border-radius: 36px 0 36px 0;
 	    padding: 0;
 	    width: 100%;
 	}
 
-	#reviews-list div {
+	ul#reviews-list div {
 	    position: absolute;
 	    background-color: black;
 	    width: 100%;
@@ -48,18 +48,18 @@ img, table, td {
 	    padding: 10px;
 	}
 
-	#reviews-list li p {
+	ul#reviews-list li p {
 	    margin-left: 15px;
 	    font-size: large;
 	}
 
-	#reviews-list li div p {
+	ul#reviews-list li div p {
 	    display: inline-table;
 	    width: auto;
 	    color: white;
 	}
 
-	#reviews-list div+p {
+	ul#reviews-list div+p {
 	    margin-top: 100px;
 	    border: 1px solid #f58500;
 	    border-radius: 7px;
@@ -69,7 +69,7 @@ img, table, td {
 	    padding: 10px 15px;
 	}
 
-	.inside #footer {
+	.inside footer#footer {
 	    width: 100%;
 	    padding: 25px 0;
 	}
@@ -79,11 +79,11 @@ img, table, td {
 
 /* responsive design for divice with min-width: 1200px*/
 @media screen and (min-width: 751px) and (max-width: 1200px) {
-	#breadcrumb {
+	ul#breadcrumb {
     	width: 100%;
 	}
 
-	.inside #map-container {
+	.inside section#map-container {
 		width: 80%;
 		height: 340px;
 		top: 130px;
@@ -91,7 +91,7 @@ img, table, td {
 		margin: auto;
 	}
 
-	.inside #restaurant-container {
+	.inside section#restaurant-container {
 		width: 80%;
 		padding: 10px 15px 10px;
 		margin-left: auto;
@@ -99,23 +99,23 @@ img, table, td {
 		margin-top: 150px;
 	}
 
-	.inside #restaurant-container p, table td {
+	.inside section#restaurant-container p, table td {
 		font-size: xx-large;
 	}
 
-	.inside #reviews-container {
+	.inside section#reviews-container {
 		width: 80%;
 		margin: auto;
 	}
 
-	#reviews-list li {
+	ul#reviews-list li {
 	    position: relative;
 	    border-radius: 36px 0 36px 0;
 	    padding: 0;
 	    width: 100%;
 	}
 	
-	#reviews-list div {
+	ul#reviews-list div {
 	    position: absolute;
 	    background-color: black;
 	    width: 100%;
@@ -124,18 +124,18 @@ img, table, td {
 	    padding: 10px;
 	}
 
-	#reviews-list li p {
+	ul#reviews-list li p {
 	    margin-left: 15px;
 	    font-size: xx-large;
 	}
 
-	#reviews-list li div p {
+	ul#reviews-list li div p {
 	    display: inline-table;
 	    width: auto;
 	    color: white;
 	}
 
-	#reviews-list div+p {
+	ul#reviews-list div+p {
 	    margin-top: 170px;
 	    border: 1px solid #f58500;
 	    border-radius: 7px;
@@ -145,7 +145,7 @@ img, table, td {
 	    padding: 10px 15px;
 	}
 
-	.inside #footer {
+	.inside footer#footer {
 	    width: 100%;
 	    padding: 25px 0;
 	}
