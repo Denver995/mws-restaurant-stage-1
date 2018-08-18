@@ -25,7 +25,7 @@
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map" aria-role="application"></div>
+      <div id="map" role="application"></div>
     </section>
     <section id="restaurant-container">
       <div class="filter-options">
@@ -44,6 +44,10 @@
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script> -->
+  <!-- register service worker -->
+  <script src="./js/register_sw.js"></script>
+  <!-- script service worker -->
+  <script src="sw.js"></script>
   <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>

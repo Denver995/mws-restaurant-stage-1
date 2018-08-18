@@ -1,5 +1,5 @@
 let urlToCache = [
-					'./', './css/styles.css', 
+					'./css/styles.css', 
 					'./css/responsive-index.css', 
 					'./css/responsive-restaurant.css'
 				];
