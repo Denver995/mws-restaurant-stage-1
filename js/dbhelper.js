@@ -4,6 +4,17 @@
 class DBHelper {
 
   /**
+   * Helper to get the base url for routes and assets
+   */
+      const getBaseUrl = () => {
+      let baseUrl = window.location.origin;
+      let ghPagesName = '/mws-restaurant-stage-1';
+      if (window.location.pathname.includes(config.ghPagesName)) baseUrl += ghPagesName;
+
+      return baseUrl;
+    }
+
+  /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
