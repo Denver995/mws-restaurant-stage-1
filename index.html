@@ -7,7 +7,7 @@
   <!-- meta name="viewport" for a better displaying of the content at all screen sizes and make use of available screen real estate.-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- responsive-index.css for responsive design -->
-  <link rel="stylesheet" href="/css/responsive-index.css" />
+  <link rel="stylesheet" href="./css/responsive-index.css" />
   <link rel="stylesheet" href="css/styles.css">
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
@@ -30,10 +30,10 @@
     <section id="restaurant-container">
       <div class="filter-options" aria-labelledby="filter_results">
         <h2 id="filter_results">Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" aria-label="neighborhoods" name="neighborhoods" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" aria-label="cuisines" name="cuisines" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
