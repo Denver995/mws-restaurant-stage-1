@@ -5,10 +5,6 @@ var newMap
 var markers = []
 
 /**
- * Fetch neighborhoods and cuisines as soon as the page is loaded.
- */
-
-/**
    * Helper to get the base url for routes and assets
    */
       const getBaseUrl = () => {
@@ -17,8 +13,11 @@ var markers = []
       if (window.location.pathname.includes(config.ghPagesName)) baseUrl += ghPagesName;
 
       return baseUrl;
-    } 
-    
+    }
+
+/**
+ * Fetch neighborhoods and cuisines as soon as the page is loaded.
+ */
 document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
