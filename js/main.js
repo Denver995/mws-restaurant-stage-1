@@ -5,6 +5,17 @@ var newMap
 var markers = []
 
 /**
+   * Helper to get the base url for routes and assets
+   */
+    export const getBaseUrl = () => {
+      let baseUrl = window.location.origin;
+      let ghPagesName = '/mws-restaurant-stage-1';
+      if (window.location.pathname.includes(config.ghPagesName)) baseUrl += ghPagesName;
+
+      return baseUrl;
+    }
+
+/**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
