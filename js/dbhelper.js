@@ -4,23 +4,12 @@
 class DBHelper {
 
   /**
-   * Helper to get the base url for routes and assets
-   */
-      const getBaseUrl = () => {
-      let baseUrl = window.location.origin;
-      let ghPagesName = '/mws-restaurant-stage-1';
-      if (window.location.pathname.includes(config.ghPagesName)) baseUrl += ghPagesName;
-
-      return baseUrl;
-    }
-
-  /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
     const port = 8000 // Change this to your server port
-    return `http://localhost:${port}/data/restaurants.json`;
+    return `https://localhost:${port}/data/restaurants.json`;
   }
 
   /**

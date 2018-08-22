@@ -2,17 +2,6 @@ let restaurant;
 var newMap;
 
 /**
-   * Helper to get the base url for routes and assets
-   */
-      const getBaseUrl = () => {
-      let baseUrl = window.location.origin;
-      let ghPagesName = '/mws-restaurant-stage-1';
-      if (window.location.pathname.includes(config.ghPagesName)) baseUrl += ghPagesName;
-
-      return baseUrl;
-    }
-
-/**
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
