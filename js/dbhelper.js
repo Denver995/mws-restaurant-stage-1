@@ -10,7 +10,7 @@ class DBHelper {
   static get DATABASE_URL() {
     let baseUrl = this.getBaseUrl();
     const port = 8000 // Change this to your server port
-    return `https://localhost:${port}/data/restaurants.json`;
+    return `https://localhost:${port}/mws-restaurant-stage-1/data/restaurants.json`;
   }
 
   /**

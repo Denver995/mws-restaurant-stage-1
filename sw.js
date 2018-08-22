@@ -4,9 +4,9 @@ let urlToCache = [
 					'/mws-restaurant-stage-1/css/responsive-index.css', 
 					'/mws-restaurant-stage-1/css/responsive-restaurant.css',
 					'/mws-restaurant-stage-1/data/restaurants.json',
-					'/js/dbhelper.js',
-					'/js/main.js',
-					'/js/restaurant_info.js',
+					'/mws-restaurant-stage-1/js/dbhelper.js',
+					'/mws-restaurant-stage-1/js/main.js',
+					'/mws-restaurant-stage-1/js/restaurant_info.js',
 				];
 let cachName = 'mws-restaurant-stage-1-v1';
 let allCaches = [urlToCache, cachName];
