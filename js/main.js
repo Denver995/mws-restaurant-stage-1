@@ -7,6 +7,18 @@ var markers = []
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
+
+/**
+   * Helper to get the base url for routes and assets
+   */
+      const getBaseUrl = () => {
+      let baseUrl = window.location.origin;
+      let ghPagesName = '/mws-restaurant-stage-1';
+      if (window.location.pathname.includes(config.ghPagesName)) baseUrl += ghPagesName;
+
+      return baseUrl;
+    } 
+    
 document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
