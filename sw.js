@@ -3,7 +3,7 @@ let urlToCache = [
 					'/mws-restaurant-stage-1/css/styles.css', 
 					'./css/responsive-index.css', 
 					'./css/responsive-restaurant.css',
-					'./data/restaurants.json'
+					'./data/restaurants.json',
 					'./js/dbhelper.js',
 					'./js/main.js',
 					'./js/restaurant_info.js',
