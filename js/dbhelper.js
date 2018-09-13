@@ -8,15 +8,15 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 8000 // Change this to your server port
-    return `https://localhost:${port}/data/restaurants.json`;
+    const port = 1337 // Change this to your server port
+    return `http://localhost:${port}/restaurants`;
   }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
+    /*let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
@@ -28,7 +28,35 @@ class DBHelper {
         callback(error, null);
       }
     };
-    xhr.send();
+    xhr.send();*/
+    
+      //try to fetch data to the local storage before going to the network
+      dbPromise.then((db) => {
+        const tx = db.transaction('restaurants');
+        const restaurantsList = tx.objectStore('restaurants');
+        return restaurantsList.get('data');
+      }).then((data) => {
+          //if there is no data store, fetch from the local server
+          if(data === undefined){
+            fetch(DBHelper.DATABASE_URL).then((resp) => { 
+              return resp.json();
+            }).then((restaurants) => {
+                dbPromise.then((db) => {
+                const tx = db.transaction('restaurants', 'readwrite');
+                const restaurantsStorage = tx.objectStore('restaurants');
+                restaurantsStorage.put(restaurants, 'data');
+                callback(null, restaurants);
+                return tx.complete;
+              }).then(() => { 
+                  console.log('data has been store in idb'); 
+                });
+              }).catch((error) => { 
+                  callback(error, null);
+                });
+          }else{
+            callback(null, data);
+          }
+      })
   }
 
   /**
@@ -147,10 +175,10 @@ class DBHelper {
   }
 
   /**
-   * Restaurant image URL.
+   * Restaurant image URL. 
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    return `/img/${restaurant.photograph || restaurant.id}.jpg`;
   }
 
   /**
