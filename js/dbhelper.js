@@ -2,7 +2,6 @@
  * Common database helper functions.
  */
 class DBHelper {
-
   /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
@@ -57,7 +56,7 @@ class DBHelper {
             callback(null, data);
           }
       })
-  }
+  } 
 
   /**
    * Fetch a restaurant by its ID.
@@ -68,12 +67,42 @@ class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        const restaurant = restaurants.find(r => r.id == id);
+        /*const restaurant = restaurants.find(r => r.id == id);
         if (restaurant) { // Got the restaurant
           callback(null, restaurant);
         } else { // Restaurant does not exist in the database
           callback('Restaurant does not exist', null);
-        }
+        }*/
+
+        //try to fetch data to the local storage before going to the network
+        const query = `http://localhost:1337/restaurants/${id}`;
+        dbPromise.then((db) => {
+          const tx = db.transaction('restaurants');
+          const restaurantsList = tx.objectStore('restaurants');
+          return restaurantsList.get(query);
+        }).then((data) => {
+            //if there is no data store, fetch from the local server
+            if(data === undefined){
+              fetch(query).then((resp) => { 
+                return resp.json();
+              }).then((restaurant) => {
+                  dbPromise.then((db) => {
+                  const tx = db.transaction('restaurants', 'readwrite');
+                  const restaurantsStorage = tx.objectStore('restaurants');
+                  restaurantsStorage.put(restaurant, query);
+                  callback(null, restaurant);
+                  return tx.complete;
+                }).then(() => { 
+                    console.log('data has been store in idb'); 
+                  });
+                }).catch((error) => { 
+                    callback(error, null);
+                    console.log('restaurant does not exist');
+                  });
+            }else{
+              callback(null, data);
+            }
+        })
       }
     });
   }

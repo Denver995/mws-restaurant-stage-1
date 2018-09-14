@@ -7,7 +7,7 @@
   <!-- meta name="viewport" for a better displaying of the content at all screen sizes and make use of available screen real estate.-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- responsive-restaurant.css for responsive design -->
-  <link rel="stylesheet" href="./css/responsive-restaurant.css" />
+  <link rel="stylesheet" href="css/responsive-restaurant.css" />
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
@@ -67,10 +67,16 @@
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/restaurant_info.js"></script>
+ <script type="text/javascript" src="js/idb.js"></script>
  <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->
   <!-- End scripts -->
   <!-- script service worker -->
   <script src="sw.js"></script>
+  <script type="text/javascript">
+    dbPromise = idb.open('data', 1, function(upgradeDb) {
+          upgradeDb.createObjectStore('restaurants');
+      });
+  </script>
 
 </body>
 

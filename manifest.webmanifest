@@ -1,0 +1,15 @@
+{
+  "short_name": "RRA",
+  "name": "Restaurant Review App",
+  "theme_color": "#eb5252",
+  "background_color": "#000000",
+  "Scope": "/",
+  "orientation": "portrait",
+  "icons": [{
+      "src": "/img/icon.jpg",
+      "type": "image/jpg",
+      "sizes": "144x144","
+    }],
+  "display": "standalone",
+  "start_url": "/"
+}

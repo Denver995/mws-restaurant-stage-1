@@ -29,6 +29,12 @@ section {
     	display: flex;
     	flex-wrap: wrap;
 	}
+
+	#restaurants-list li {
+	    box-shadow: 5px 15px 10px;
+	    padding: 0;
+	    text-align: center;
+	}
 	
 }
 
@@ -51,6 +57,12 @@ section {
     	padding: 10px 0 5px;
     	display: flex;
     	flex-wrap: wrap;
+	}
+
+	#restaurants-list li {
+	    box-shadow: 5px 15px 10px;
+	    padding: 0;
+	    text-align: center;
 	}
 }
 
@@ -77,10 +89,11 @@ section {
 	}
 
 	#restaurants-list li {
-	    padding: 10px 10px 10px;
+	    padding: 20px 20px;
 	    text-align: left;
 	    width: 441px;
 	    display: grid;
+	    box-shadow: 5px 15px 10px;
 	}
 	
 }
@@ -102,15 +115,16 @@ section {
 	}
 
 	ul#restaurants-list {
-	    padding: 30px 0 60px;
+	    padding: 60px 60px;
 	    display: flex;
 	    flex-wrap: wrap;
 	}
 
 	#restaurants-list li {
-	    padding: 10px 10px 10px;
+	    padding: 20px 20px;
 	    text-align: left;
 	    width: 441px;
 	    display: grid;
+	    box-shadow: 5px 15px 10px;
 	}
 }
