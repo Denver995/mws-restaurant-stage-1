@@ -7,9 +7,9 @@ const imagemin = require('gulp-imagemin');
 const imageminJpegtran = require('imagemin-jpegtran');
 
 
-gulp.task('default', ['style', 'copy-images', 'script', 'copy-html'], function () {
-	gulp.watch('sass/**/*.scss', ['style']);
-	gulp.watch('./*.html', ['copy-html']);
+gulp.task('default', ['styles', 'copy-images', 'script', 'copy-html'], function () {
+	gulp.watch('sass/**/*.scss', ['styles']);
+	gulp.watch('/index.html', ['copy-html']);
 	gulp.watch('./index.html').on('change', browserSync.reload);
 	gulp.watch('./restaurant.html').on('change', browserSync.reload);
 	browserSync.init({
