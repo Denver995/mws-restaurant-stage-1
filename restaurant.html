@@ -52,6 +52,42 @@
     <!-- Beginning reviews -->
     <section id="reviews-container">
       <ul id="reviews-list"></ul>
+      <div class="succes-message"></div>
+      <div class="form-reviews card">
+        <h3>add a review</h3>
+        <form id="form-reviews">
+          <div class="label">
+            <label for="reviewer_name" class="label">name</label>
+          </div>
+          <div class="input">
+            <input type="text" name="reviewer_name" id="reviewer_name" class="input"/>
+          </div>
+          <div class="label">
+            <label for="ratin" class="label">rate</label>
+          </div>
+          <fieldset>
+            <span class="star-cb-group">
+              <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+              <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
+              <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
+              <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
+              <input type="radio" id="rating-4" name="rating" value="4" checked="checked" /><label for="rating-4">4</label>
+              <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
+            </span>
+          </fieldset>
+          <div class="label">
+            <label for="comment_text" class="label">comments</label>
+          </div>
+          <div class="textarea">
+            <textarea name="comment_text" id="comment_text"></textarea> 
+          </div>
+          <div class="input">
+            <input type="number" name="id" id="id" class="input"/>
+          </div> 
+          <input type="submit" value="add your review" id="btn-submit" class="btn-submit"><div class="loader"></div>
+        </form>
+      </div>
+      <!-- End form reviews -->
     </section>
     <!-- End reviews -->
   </main>
