@@ -82,7 +82,7 @@
             <textarea name="comment_text" id="comment_text"></textarea> 
           </div>
           <div class="input">
-            <input type="number" name="id" id="id" class="input"/>
+            <input type="number"  hidden="true" id="id" class="input"/>
           </div> 
           <input type="submit" value="add your review" id="btn-submit" class="btn-submit"><div class="loader"></div>
         </form>
@@ -111,8 +111,16 @@
   <script src="sw.js"></script>
   <script type="text/javascript">
     dbPromise = idb.open('data', 1, function(upgradeDb) {
-          upgradeDb.createObjectStore('restaurants');
-      });
+        upgradeDb.createObjectStore('restaurants');
+        upgradeDb.createObjectStore('restaurant-reviews');
+    });
+    var formReview = document.getElementById('form-reviews');
+    console.log('event will soon start');
+    formReview.addEventListener('submit', (event) => {
+        console.log('event is handling', event);
+        addReview(event);
+        console.log('end event');
+    });
   </script>
 
 </body>

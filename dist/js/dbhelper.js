@@ -58,6 +58,72 @@ class DBHelper {
       })
   } 
 
+  static fetchReviews (id){
+  //try to fetch data to the local storage before going to the network
+  const query = `http://localhost:1337/reviews/?restaurant_id=${id}`;
+  dbPromise.then((db) => {
+    const tx = db.transaction('restaurant-reviews');
+    const reviewsStorage = tx.objectStore('restaurant-reviews');
+      return reviewsStorage.getAll();
+    }).then((data_reviews) => {
+        //if there is no data store, fetch from the local server
+        if(data_reviews === undefined){
+          dbPromise.then((db) => {
+            fetch('http://localhost:1337/reviews/?restaurant_id='+id).then((resp) => { 
+              return resp.json();
+            }).then((reviewsList) => {
+              console.log(reviewsList);
+              reviewsList.forEach(review => {
+                console.log(review)
+                const tx = db.transaction('restaurant-reviews', 'readwrite');
+                const reviewId = review.id;
+                console.log(reviewId);
+                const reviewsStorage = tx.objectStore('restaurant-reviews');
+                reviewsStorage.put(review, reviewId);
+                fillReviewHTML(review);
+                return tx.complete;
+              });
+            }).catch((error) => {
+              console.log(error);
+            });
+          }).catch((error) => {console.log(error);}); 
+        }else{
+          data_reviews.forEach((review) => {
+          fillReviewHTML(review);
+        });
+      }
+  }).catch((error) => {console.log(error);});
+}
+
+/**
+*function that will call to post review server
+*/
+ 
+static addNewReview(parameters) {
+  const url = 'http://localhost:1337/reviews/';
+  fetch(url, {
+    method: 'post',
+    headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
+    body:JSON.stringify(parameters)
+  }).then((resp) => { 
+    return resp.json();
+    console.log(resp);
+  }).then((data) => {
+    dbPromise.then((db) => {
+      const tx = db.transaction('restaurant-reviews');
+      const objectStore = tx.objectStore('restaurant-reviews');
+      objectStore.put(data, data.id);
+    }).then((data) => {
+      console.log('your new reviews has been posted')
+    }).catch((error) => {
+      console.log('an error happen', error);
+    });
+    console.log('Request succeeded with JSON response', data);
+  }).catch((error) => {
+    console.log('Request failed', error);
+  });
+}
+
   /**
    * Fetch a restaurant by its ID.
    */

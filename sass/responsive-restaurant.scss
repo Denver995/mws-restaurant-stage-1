@@ -9,6 +9,147 @@ img, table, td {
     max-width: 100%;
 }
 
+/* design radio group button*/
+@charset "UTF-8";
+.star-cb-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  /* flip the order so we can use the + and ~ combinators */
+  display: inline-flex;
+  /* the hidden clearer */
+}
+.star-cb-group * {
+  font-size: 1rem;
+}
+.star-cb-group > input {
+  display: none;
+}
+.star-cb-group > input + label {
+  /* only enough room for the star */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 9999px;
+  width: 1em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.star-cb-group > input + label:before {
+  display: inline-block;
+  text-indent: -9999px;
+  content: "☆";
+  color: #888;
+}
+.star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+  content: "★";
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+.star-cb-group > .star-cb-clear + label {
+  text-indent: -9999px;
+  width: .5em;
+  margin-left: -.5em;
+}
+.star-cb-group > .star-cb-clear + label:before {
+  width: .5em;
+}
+.star-cb-group:hover > input + label:before {
+  content: "☆";
+  color: #888;
+  text-shadow: none;
+}
+.star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+  content: "★";
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+
+:root {
+  font-size: 2em;
+  font-family: Helvetica, arial, sans-serif;
+}
+
+body {
+  background: #333;
+  color: #888;
+}
+
+#log {
+  margin: 1em auto;
+  width: 5em;
+  text-align: center;
+ background: transparent;
+}
+
+
+h3 {
+    text-align: center;
+    font-family: fantasy;
+    font-size: xx-large;
+    color: #6a69b7;
+}
+
+/*  style label */
+.label {
+    font-family: fantasy;
+    font-size: x-large;
+    color: #02b0d8c2;
+}
+
+/* class btn-submit*/
+input.btn-submit {
+    background-color: #23ca66;
+    border-radius: 5px;
+    color: white;
+    font-family: monospace;
+    padding: 10px;
+}
+
+/* class card*/
+.card{
+	padding: 20px 20px;
+	text-align: left;
+	/*width: 441px;*/
+	/*text-align: center;*/
+	display: grid;
+	box-shadow: 1px 16px 9px 2px;
+}
+
+input#reviewer_name {
+    border-radius: 5px 5px;
+    padding: 10px;
+    box-shadow: 1px 2px 6px 1px;
+}
+
+input#reviewer_name:focus {
+    border-color: #22ee74ba;
+    box-shadow: inset 0px -1px 3px 0px black;
+}
+
+fieldset {
+    border: 0;
+    background: #222222a3;
+    width: 5em;
+    border-radius: 5px;
+    padding: 1em 1.5em 0.9em;
+}
+
+textarea {
+	padding: 10px;
+	width: 180px;
+	height: 100px;
+	border-radius: 7px;
+	box-shadow: 1px 2px 6px 1px;
+}
+
+textarea:focus {
+    border-color: #22ee74ba;
+    box-shadow: inset 0px -1px 3px 0px black;
+}
+
+input#reviewer_name, textarea, fieldset{
+	margin-bottom: 15px;
+}
+
 /* responsive design for divice with max-width: 750px*/
 @media screen and (max-width: 750px) {
 	ul#breadcrumb {
@@ -67,6 +208,15 @@ img, table, td {
 	    width: max-content;
 	    color: white;
 	    padding: 10px 15px;
+	}
+
+	div#form-reviews{
+		width: max-content;
+		background-color: aqua;
+	}
+
+	label{
+		position: relative;
 	}
 
 	.inside footer#footer {

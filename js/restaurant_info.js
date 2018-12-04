@@ -7,7 +7,7 @@ var newMap;
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
 }); 
-
+ 
 /**
  * Initialize leaflet map
  */
@@ -126,23 +126,67 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = () => {
+  const restaurant_id = getParameterByName('id');
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
 
-  if (!reviews) {
+  /*if (!reviews) {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
     container.appendChild(noReviews);
     return;
-  }
+  }*/
+  DBHelper.fetchReviews(restaurant_id);
   const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
+  /*reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
+  container.appendChild(ul);*/
+}
+
+/**
+ * Create new review HTML and add it to others reviews in the page.
+ */
+fillReviewHTML = (review) => {
+  const container = document.getElementById('reviews-container');
+  const noReviews = document.createElement('p');
+  noReviews.innerHTML = 'No reviews yet!';
+  if (!review) {
+    container.appendChild(noReviews);
+    return;
+  }
+  const ul = document.getElementById('reviews-list');
+  ul.appendChild(createReviewHTML(review));
   container.appendChild(ul);
+
+}
+
+/**
+ *function that will call to post review server
+*/
+addReview = () => {          
+  console.log('function will start');
+  const name = document.getElementById('reviewer_name').value;
+  const restaurantId = getParameterByName('id');
+  const rating = document.querySelector('input[name="rating"]:checked').value;
+  const comments = document.getElementById('comment_text').value;  
+  const ul = document.getElementById('reviews-list');
+
+  /* define an object parameters that will be send to dbhelper*/
+  const parameters = {
+    "restaurant_id": parseInt(restaurantId),
+    "name": name,
+    "rating": parseInt(rating),
+    "comments": comments
+  } 
+  console.log('start db engine');
+  dbhelper.addNewReview(parameters);
+  fillReviewHTML(parameters);
+  event.preventDefault();
+
 }
 
 /**
@@ -156,8 +200,9 @@ createReviewHTML = (review) => {
   div.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
-  div.appendChild(date);
+  //const date_review = new Date(review.createdAt*100);
+  //console.log(date_review);
+  //date.innerHTML = date_review;
 
   li.appendChild(div);
 
