@@ -82,9 +82,9 @@
             <textarea name="comment_text" id="comment_text"></textarea> 
           </div>
           <div class="input">
-            <input type="number"  hidden="true" id="id" class="input"/>
+            <input name="id" type="number"  hidden="true" id="id" class="input"/>
           </div> 
-          <input type="submit" value="add your review" id="btn-submit" class="btn-submit"><div class="loader"></div>
+          <button id="btn-submit" class="btn-submit">Add now</button><div class="loader"></div>
         </form>
       </div>
       <!-- End form reviews -->
@@ -110,14 +110,9 @@
   <!-- script service worker -->
   <script src="sw.js"></script>
   <script type="text/javascript">
-    dbPromise = idb.open('data', 1, function(upgradeDb) {
-        upgradeDb.createObjectStore('restaurants');
-        upgradeDb.createObjectStore('restaurant-reviews');
-    });
-    var formReview = document.getElementById('form-reviews');
     console.log('event will soon start');
-    formReview.addEventListener('submit', (event) => {
-        console.log('event is handling', event);
+    document.getElementById('btn-submit').addEventListener('click', (event) => {
+        event.preventDefault();
         addReview(event);
         console.log('end event');
     });
