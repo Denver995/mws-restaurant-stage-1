@@ -7,7 +7,7 @@ var newMap;
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
 }); 
- 
+
 /**
  * Initialize leaflet map
  */
@@ -152,8 +152,6 @@ fillReviewsHTML = () => {
  */
 fillReviewHTML = (review) => {
   const container = document.getElementById('reviews-container');
-  const noReviews = document.createElement('p');
-  noReviews.innerHTML = 'No reviews yet!';
   if (!review) {
     container.appendChild(noReviews);
     return;
@@ -161,31 +159,6 @@ fillReviewHTML = (review) => {
   const ul = document.getElementById('reviews-list');
   ul.appendChild(createReviewHTML(review));
   container.appendChild(ul);
-
-}
-
-/**
- *function that will call to post review server
-*/
-addReview = () => {          
-  console.log('function will start');
-  const name = document.getElementById('reviewer_name').value;
-  const restaurantId = getParameterByName('id');
-  const rating = document.querySelector('input[name="rating"]:checked').value;
-  const comments = document.getElementById('comment_text').value;  
-  const ul = document.getElementById('reviews-list');
-
-  /* define an object parameters that will be send to dbhelper*/
-  const parameters = {
-    "restaurant_id": parseInt(restaurantId),
-    "name": name,
-    "rating": parseInt(rating),
-    "comments": comments
-  } 
-  console.log('start db engine');
-  dbhelper.addNewReview(parameters);
-  fillReviewHTML(parameters);
-  event.preventDefault();
 
 }
 
@@ -198,11 +171,11 @@ createReviewHTML = (review) => {
   const name = document.createElement('p');
   name.innerHTML = review.name;
   div.appendChild(name);
-
+ 
   const date = document.createElement('p');
-  //const date_review = new Date(review.createdAt*100);
-  //console.log(date_review);
-  //date.innerHTML = date_review;
+  const review_date = new Date(review.createdAt*1000);
+  date.innerHTML = review_date;
+  div.appendChild(date);
 
   li.appendChild(div);
 
@@ -215,6 +188,33 @@ createReviewHTML = (review) => {
   li.appendChild(comments);
   
   return li;
+}
+
+/**
+ *function that will call to post review server
+*/
+addReview = () => {          
+  console.log('function will start');
+  const name = document.getElementById('reviewer_name').value;
+  const id = document.getElementById('id');
+  const restaurantId = getParameterByName('id');
+  id.value = restaurantId;
+  const rating = document.querySelector('input[name="rating"]:checked').value;
+  const comments = document.getElementById('comment_text').value;  
+  const ul = document.getElementById('reviews-list');
+
+  /* define an object parameters that will be send to dbhelper*/
+  const parameters = {
+    "restaurant_id": parseInt(restaurantId),
+    "name": name,
+    "rating": parseInt(rating),
+    "comments": comments
+  } 
+  console.log('start db engine');
+  DBHelper.addNewReview(parameters);
+  fillReviewHTML(parameters);
+  event.preventDefault();
+
 }
 
 /**

@@ -52,12 +52,6 @@
   <!-- register service worker -->
   <script src="./js/register_sw.js"></script>
   <script src="sw.js"></script>
-  <script type="text/javascript">
-    dbPromise = idb.open('data', 1, function(upgradeDb) {
-      upgradeDb.createObjectStore('restaurants');
-      upgradeDb.createObjectStore('restaurant-reviews');
-    });
-  </script>
   <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>

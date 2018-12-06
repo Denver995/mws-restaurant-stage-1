@@ -6,18 +6,16 @@ class DBHelper {
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
-  static get DATABASE_URL() {
-    const port = 1337 // Change this to your server port
-    return `http://localhost:${port}/restaurants`;
-  }
-
   static idbStorage() {
-    const dbPromise = idb.open('data', 1, function(upgradeDb) {
+    var dbPromise = idb.open('data', 1, function(upgradeDb) {
       switch(upgradeDb.oldVersion){
         case 0:
-          upgradeDb.createObjectStore('restaurants');
+          upgradeDb.createObjectStore('restaurants', { keyPath: 'id' });
         case 1:
-          upgradeDb.createObjectStore('restaurant-reviews');
+          var reviews = upgradeDb.createObjectStore('restaurant-reviews', { keyPath: 'id' });
+        case 2:
+          var reviewsStorage = upgradeDb.transaction.objectStore('restaurant-reviews');
+          reviewsStorage.createIndex('restaurant', 'restaurant_id');
       }
     });
     return dbPromise;
@@ -72,41 +70,39 @@ class DBHelper {
 
   static fetchReviews(id) {
   //try to fetch data to the local storage before going to the network
-  const query = `http://localhost:1337/reviews/?restaurant_id=${id}`;
-  const dbPromise = DBHelper.idbStorage();
-  dbPromise.then((db) => {
-    const tx = db.transaction('restaurant-reviews');
-    const reviewsStorage = tx.objectStore('restaurant-reviews');
-      return reviewsStorage.getAll();
-    }).then((data_reviews) => {
-        //if there is no data store, fetch from the local server
-        if(data_reviews === undefined){
-            fetch(query).then((resp) => { 
-              return resp.json();
-            }).then((reviewsList) => {
-              console.log(reviewsList);
-              reviewsList.forEach(review => {
-                console.log(review)
-                const dbPromise = DBHelper.idbStorage();
-                dbPromise.then((db) => {
-                  const tx = db.transaction('restaurant-reviews', 'readwrite');
-                  const reviewId = review.id;
-                  console.log(reviewId);
-                  const reviewsStorage = tx.objectStore('restaurant-reviews');
-                  reviewsStorage.put(review, reviewId);
-                  fillReviewHTML(review);
-                  return tx.complete;
-                }); 
-              });
-            }).catch((error) => {
-              console.log(error);
-            });
-        }else{
-          data_reviews.forEach((review) => {
-          fillReviewHTML(review);
+  const query = "http://localhost:1337/reviews/?restaurant_id="+id;
+  var dbPromise = DBHelper.idbStorage();
+  fetch(query).then((resp) => { 
+        return resp.json();
+      }).then((reviewsList) => {
+        console.log(reviewsList);
+        const dbPromise = DBHelper.idbStorage();
+        dbPromise.then((db) => {
+        const tx = db.transaction('restaurant-reviews', 'readwrite');
+        const reviewsStorage = tx.objectStore('restaurant-reviews');
+          reviewsList.forEach((review) => {
+            console.log(review)
+            reviewsStorage.put(review, review.id);
+            fillReviewHTML(review);
+          });
+          return tx.complete; 
         });
-      }
-  })
+    }).catch((error) => {
+      dbPromise.then((db) => {
+      const tx = db.transaction('restaurant-reviews');
+      const reviewsStorage = tx.objectStore('restaurant-reviews');
+      const restaurantIndex = reviewsStorage.index('restaurant')
+        return restaurantIndex.getAll(id);
+      }).then((data_reviews) => {
+          //if there is no data store, fetch from the local server
+          data_reviews.forEach((review) => {
+            fillReviewHTML(review);
+          });
+      }).catch((error) => {
+        console.log(error);
+        
+      });
+    });
 }
 
 /**
