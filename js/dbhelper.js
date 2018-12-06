@@ -20,6 +20,7 @@ class DBHelper {
           upgradeDb.createObjectStore('restaurant-reviews');
       }
     });
+    return dbPromise;
   }
 
   /**
@@ -39,7 +40,7 @@ class DBHelper {
       }
     };
     xhr.send();*/
-    
+      const dbPromise = DBHelper.idbStorage();
       //try to fetch data to the local storage before going to the network
       dbPromise.then((db) => {
         const tx = db.transaction('restaurants');
@@ -122,6 +123,7 @@ static addNewReview(parameters) {
     return resp.json();
     console.log(resp);
   }).then((data) => {
+    const dbPromise = DBHelper.idbStorage();
     dbPromise.then((db) => {
       const tx = db.transaction('restaurant-reviews');
       const objectStore = tx.objectStore('restaurant-reviews', 'readwrite');
@@ -154,6 +156,7 @@ static addNewReview(parameters) {
         }*/
 
         //try to fetch data to the local storage before going to the network
+        const dbPromise = DBHelper.idbStorage();
         const query = `http://localhost:1337/restaurants/${id}`;
         dbPromise.then((db) => {
           const tx = db.transaction('restaurants');
@@ -314,4 +317,3 @@ static addNewReview(parameters) {
   } */
 
 }
-
