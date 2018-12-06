@@ -148,6 +148,21 @@ fillReviewsHTML = () => {
 }
 
 /**
+ * Create new review HTML and add it to others reviews in the page.
+ */
+fillReviewHTML = (review) => {
+  const container = document.getElementById('reviews-container');
+  if (!review) {
+    container.appendChild(noReviews);
+    return;
+  }
+  const ul = document.getElementById('reviews-list');
+  ul.appendChild(createReviewHTML(review));
+  container.appendChild(ul);
+
+}
+
+/**
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
