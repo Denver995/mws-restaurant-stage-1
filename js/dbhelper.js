@@ -11,6 +11,17 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
+  static idbStorage() {
+    const dbPromise = idb.open('data', 1, function(upgradeDb) {
+      switch(upgradeDb.oldVersion){
+        case 0:
+          upgradeDb.createObjectStore('restaurants');
+        case 1:
+          upgradeDb.createObjectStore('restaurant-reviews');
+      }
+    });
+  }
+
   /**
    * Fetch all restaurants.
    */
@@ -58,9 +69,10 @@ class DBHelper {
       })
   } 
 
-  static fetchReviews (id){
+  static fetchReviews(id) {
   //try to fetch data to the local storage before going to the network
   const query = `http://localhost:1337/reviews/?restaurant_id=${id}`;
+  const dbPromise = DBHelper.idbStorage();
   dbPromise.then((db) => {
     const tx = db.transaction('restaurant-reviews');
     const reviewsStorage = tx.objectStore('restaurant-reviews');
@@ -68,31 +80,32 @@ class DBHelper {
     }).then((data_reviews) => {
         //if there is no data store, fetch from the local server
         if(data_reviews === undefined){
-          dbPromise.then((db) => {
-            fetch('http://localhost:1337/reviews/?restaurant_id='+id).then((resp) => { 
+            fetch(query).then((resp) => { 
               return resp.json();
             }).then((reviewsList) => {
               console.log(reviewsList);
               reviewsList.forEach(review => {
                 console.log(review)
-                const tx = db.transaction('restaurant-reviews', 'readwrite');
-                const reviewId = review.id;
-                console.log(reviewId);
-                const reviewsStorage = tx.objectStore('restaurant-reviews');
-                reviewsStorage.put(review, reviewId);
-                fillReviewHTML(review);
-                return tx.complete;
+                const dbPromise = DBHelper.idbStorage();
+                dbPromise.then((db) => {
+                  const tx = db.transaction('restaurant-reviews', 'readwrite');
+                  const reviewId = review.id;
+                  console.log(reviewId);
+                  const reviewsStorage = tx.objectStore('restaurant-reviews');
+                  reviewsStorage.put(review, reviewId);
+                  fillReviewHTML(review);
+                  return tx.complete;
+                }); 
               });
             }).catch((error) => {
               console.log(error);
             });
-          }).catch((error) => {console.log(error);}); 
         }else{
           data_reviews.forEach((review) => {
           fillReviewHTML(review);
         });
       }
-  }).catch((error) => {console.log(error);});
+  })
 }
 
 /**
@@ -103,7 +116,7 @@ static addNewReview(parameters) {
   const url = 'http://localhost:1337/reviews/';
   fetch(url, {
     method: 'post',
-    headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
+    headers: {"Content-type": "application/json; charset=UTF-8"},
     body:JSON.stringify(parameters)
   }).then((resp) => { 
     return resp.json();
@@ -111,7 +124,7 @@ static addNewReview(parameters) {
   }).then((data) => {
     dbPromise.then((db) => {
       const tx = db.transaction('restaurant-reviews');
-      const objectStore = tx.objectStore('restaurant-reviews');
+      const objectStore = tx.objectStore('restaurant-reviews', 'readwrite');
       objectStore.put(data, data.id);
     }).then((data) => {
       console.log('your new reviews has been posted')
