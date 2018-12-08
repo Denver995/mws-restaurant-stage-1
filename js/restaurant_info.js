@@ -173,7 +173,7 @@ createReviewHTML = (review) => {
   div.appendChild(name);
  
   const date = document.createElement('p');
-  const review_date = new Date(review.createdAt*1000);
+  const review_date = new Date(review.createdAt).toGMTString();
   date.innerHTML = review_date;
   div.appendChild(date);
 

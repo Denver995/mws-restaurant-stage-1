@@ -9,7 +9,13 @@ main {
     flex-wrap: wrap;
 }
 
-form{
+ul.list-btn {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form#form-reviews{
   display: none;
 }
 
@@ -17,7 +23,7 @@ img, table, td {
     max-width: 100%;
 }
 
-ul#reviews-list, div#control-contain, button#btn-hide-controls{
+ul#reviews-list, div#control-contain, button#btn-hide-controls, .message{
   display: none;
 }
 
@@ -208,12 +214,12 @@ button.btn {
 
 /* class card*/
 .card{
-	padding: 20px 20px;
-	text-align: left;
-	/*width: 441px;*/
-	/*text-align: center;*/
-	display: grid;
-	box-shadow: 1px 16px 9px 2px;
+  padding: 20px 20px;
+  text-align: left;
+  /*width: 441px;*/
+  /*text-align: center;*/
+  display: grid;
+  box-shadow: 1px 16px 9px 2px;
 }
 
 input#reviewer_name {
@@ -236,11 +242,11 @@ fieldset {
 }
 
 textarea {
-	padding: 10px;
-	width: 180px;
-	height: 100px;
-	border-radius: 7px;
-	box-shadow: 1px 2px 6px 1px;
+  padding: 10px;
+  width: 180px;
+  height: 100px;
+  border-radius: 7px;
+  box-shadow: 1px 2px 6px 1px;
 }
 
 textarea:focus {
@@ -249,5 +255,13 @@ textarea:focus {
 }
 
 input#reviewer_name, textarea, fieldset{
-	margin-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.success-message {
+  max-width: 100%;
+  padding: 25px;
+  background-color: coral;
+  color: white;
+  font-size: 25px;
 }

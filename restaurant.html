@@ -33,12 +33,14 @@
       <li><a href="/">Home</a></li>
     </ul>
     <div id="control-contain" class="container">
-        <button  id="btn-display-form" class="btn">Adding your review</button>
-        <button  id="btn-hide-form" class="btn">hide form</button>
-        <button  id="btn-display-reviews-list" class="btn">show reviews list</button>
-        <button  id="btn-hide-reviews-list" class="btn">hide reviews list</button>
-        <button  id="btn-display-map" class="btn">show map carte</button>
-        <button  id="btn-hide-map" class="btn">hide map carte</button>  
+      <ul class="list-btn">
+        <li><button  id="btn-display-form" class="btn">Adding your review</button></li>
+        <li><button  id="btn-hide-form" class="btn">hide form</button></li>
+        <li><button  id="btn-display-reviews-list" class="btn">show reviews list</button></li>
+        <li><button  id="btn-hide-reviews-list" class="btn">hide reviews list</button></li>
+        <li><button  id="btn-display-map" class="btn">show map carte</button></li>
+        <li><button  id="btn-hide-map" class="btn">hide map carte</button> </li>
+      </ul> 
     </div>
     <!-- End breadcrumb -->
     <!-- End nav -->
@@ -64,8 +66,8 @@
     <!-- Beginning reviews -->
     <section id="reviews-container">
       <ul id="reviews-list"></ul>
-      <div class="succes-message"></div>
-      <div class="form-reviews card">
+      <div class="message">your review have been add</div>
+      <div class="form-reviews">
         <form id="form-reviews">
           <h3>add a review</h3>
           <div class="label">
@@ -126,6 +128,10 @@
     document.getElementById('btn-submit').addEventListener('click', (event) => {
         event.preventDefault();
         addReview(event);
+        setTimeout(function(){ 
+          document.querySelector('.message').style.display = "block"; 
+          document.querySelector('.message').toggle('.success-message'); 
+        }, 2000);
         console.log('end event');
     });
 
@@ -133,7 +139,7 @@
     document.getElementById('btn-display-map').addEventListener('click', () => {
         document.getElementById("btn-display-map").style.display = "none";
         document.getElementById("btn-hide-map").style.display = "block";
-        document.getElementById("map").style.display = "block";    
+        document.getElementById("map-container").style.display = "block";    
     }); 
 
     //show controls buttons
@@ -159,19 +165,21 @@
     document.getElementById('btn-hide-map').addEventListener('click', () => {
         document.getElementById("btn-hide-map").style.display = "none"; 
         document.getElementById("btn-display-map").style.display = "block";
-        document.getElementById("map").style.display = "none";   
+        document.getElementById("map-container").style.display = "none";   
     });
 
     //show the form to add a new review
     document.getElementById('btn-display-form').addEventListener('click', () => {
         document.getElementById("form-reviews").style.display = "block"; 
+        document.querySelector(".form-reviews").classList.toggle("card");
         document.getElementById("btn-hide-form").style.display = "block";
         document.getElementById("btn-display-form").style.display = "none";   
     });
 
-    //hide the form to add a new review
+    //hide the form 
     document.getElementById('btn-hide-form').addEventListener('click', () => {
-        document.getElementById("form-reviews").style.display = "none";  
+        document.getElementById("form-reviews").style.display = "none"; 
+        document.querySelector(".form-reviews").classList.remove("card"); 
         document.getElementById("btn-hide-form").style.display = "none";
         document.getElementById("btn-display-form").style.display = "block";  
     });

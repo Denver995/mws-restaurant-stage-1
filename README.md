@@ -38,12 +38,14 @@ Let's start with running commands in your terminal, known as command line interf
 
 #### Start the server 
 ```Start server
-# node server
+1. switch to the folder that contain the mws-restaurant-stage-1 folder that you had cloned
+2. open your cli from this directory
+3. # node server
 ```
 #### Start the app
 ```Start restaurant review app
-```
 1. switch to the folder that contain the mws-restaurant-stage-1 folder that you had cloned
 2. open your cli from this directory
-3. enter in your cli: gulp
+3. # gulp
 enjoy...
+```

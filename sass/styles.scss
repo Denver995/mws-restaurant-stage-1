@@ -8,7 +8,7 @@ body,td,th,p{
 	line-height: 1.5;
 }
 body {
-	background-color: #fdfdfd;
+	background-color: #ddd;
 	margin: 0;
 	position:relative;
 }
@@ -34,6 +34,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
+}
+ul.list-btn {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
 }
 #maincontent {
   background-color: #f3f3f3;
