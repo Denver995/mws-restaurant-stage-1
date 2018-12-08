@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+section#map-container {
+		width: 100%;
+	}
+		 
+	section#restaurant-container {
+		width: 100%;
+		padding: 10px 0 10px;
+	}
+
+	div.filter-options {
+		height: 120px;
+	}
+
+	ul#restaurants-list {
+    	padding: 10px 10px 5px;
+    	display: flex;
+    	flex-wrap: wrap;
+	}
+
+	#restaurants-list li {
+	    box-shadow: 5px 15px 10px;
+	    padding: 0;
+	    text-align: center;
+	}
