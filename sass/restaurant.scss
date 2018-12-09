@@ -1,9 +1,5 @@
 @charset "utf-8";
 
-div#map {
-  display: none;
-}
-
 main {
     display: flex;
     flex-wrap: wrap;
@@ -23,7 +19,7 @@ img, table, td {
     max-width: 100%;
 }
 
-ul#reviews-list, div#control-contain, button#btn-hide-controls, .message{
+ul#reviews-list, div#control-contain, button#btn-hide-controls, .message, div#map , section#map-container{
   display: none;
 }
 

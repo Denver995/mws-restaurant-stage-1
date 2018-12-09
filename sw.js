@@ -85,3 +85,30 @@ function cacheRequest(event) {
 		})
 	);
 }
+
+self.addEventListener('sync', function(event) {
+  if (event.tag == 'post-review') {
+  	console.log('syn is running');
+    event.waitUntil(postReviewsSync());
+  } 
+});
+
+
+function postReviewsSync(){
+	console.log('post-review is running');
+	var dbPromise = DBHelper.idbStorage();
+	dbPromise.then((db) => {
+	  console.log('db is running');
+      const tx = db.transaction('pending-reviews');
+      const pendingReviewsStorage = tx.objectStore('pending-reviews');
+        return pendingReviewsStorage.getAll();
+    }).then((pendingReviews) => {
+        pendingReviews.forEach((review) => {
+            DBHelper.addNewReview(review);
+            console.log('your reviews has been post to the server');
+        });
+      }).catch((error) => {
+        console.log(error);
+        
+    });
+}

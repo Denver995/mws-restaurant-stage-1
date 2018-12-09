@@ -1,7 +1,7 @@
 let restaurant;
 var newMap;
 
-/**
+/**  
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
@@ -194,7 +194,6 @@ createReviewHTML = (review) => {
  *function that will call to post review server
 */
 addReview = () => {          
-  console.log('function will start');
   const name = document.getElementById('reviewer_name').value;
   const id = document.getElementById('id');
   const restaurantId = getParameterByName('id');
@@ -210,7 +209,6 @@ addReview = () => {
     "rating": parseInt(rating),
     "comments": comments
   } 
-  console.log('start db engine');
   DBHelper.addNewReview(parameters);
   fillReviewHTML(parameters);
   event.preventDefault();

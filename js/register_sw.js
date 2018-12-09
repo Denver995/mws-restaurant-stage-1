@@ -1,7 +1,12 @@
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('./sw.js', { scope: './'}).then( reg => {
-		console.log('your service worker was successfull registered');
-	}).catch( error => {
-		console.log('failled to registered your service worker', error);
-	});
-}
+  navigator.serviceWorker
+    .register('./sw.js', { scope: './'})
+    .then(registration => navigator.serviceWorker.ready)
+    .then(registration => { // register sync
+      console.log('Sync start registration');
+      document.getElementById('btn-submit').addEventListener('click', () => {
+        registration.sync.register('post-review').then(() => {
+            console.log('Sync registered');
+        });
+      });
+    });
